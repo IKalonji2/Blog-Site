@@ -1,0 +1,43 @@
+
+<div class="content" >
+
+  <mat-card>
+
+    <div class="article-info">
+
+      <p class="article-author">
+        {{ article.author }} ||
+      </p>
+
+      <p class="article-date">
+        {{ article.date }} ||
+      </p>
+
+      <p class="article-category">
+        {{ article.category.name }}
+      </p>
+    </div>
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        {{ article.title}}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content >
+
+      <p>
+        {{ article.content}}...
+      </p>
+    </mat-card-content>
+
+    <mat-card-footer class="article-footer">
+
+      <button mat-button>
+        read more...
+      </button>
+    </mat-card-footer>
+  </mat-card>
+</div>
