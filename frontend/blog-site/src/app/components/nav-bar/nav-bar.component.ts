@@ -1,7 +1,8 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/User';
-import { UserService } from '../../services/user/user.service';
+import { select, Store } from '@ngrx/store';
+import { selectUser } from '../../store/store.selectors';
+import { userLoggedIn } from '../../store/store.actions';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,18 +10,30 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private store: Store) {}
 
-  user: User = {
-    username: '',
-  };
+  user: User = { username: '' };
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let shop = this.store.pipe(select(selectUser));
+    shop.subscribe((s) => {
+      if (!s) {
+        return;
+      } else {
+        this.user = s;
+      }
+    });
+  }
 
-  getUser(): void {
-    this.userService.getUser().subscribe((user) => {
-      this.user = user;
-      console.log(user);
+  async getUser(): Promise<void> {
+    this.store.dispatch(userLoggedIn());
+    let shop = this.store.pipe(select(selectUser));
+    shop.subscribe((s) => {
+      if (!s) {
+        return;
+      } else {
+        this.user = s;
+      }
     });
   }
 }

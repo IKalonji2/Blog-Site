@@ -8,6 +8,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { ViewArticleComponent } from './components/view-article/view-article.component';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './store/store.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreEffect } from './store/store.effects.ts'
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, ViewArticleComponent],
@@ -18,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     HttpClientModule,
     MatMenuModule, 
+    StoreModule.forRoot({ user: userReducer }), EffectsModule.forRoot([StoreEffect]),
   ],
   providers: [],
   bootstrap: [AppComponent],

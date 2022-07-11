@@ -14,8 +14,7 @@ export class UserService {
     'http://ec2-13-244-233-86.af-south-1.compute.amazonaws.com:5000/username';
 
   getUser(): Observable<User> {
-    const user = this.http.get<User>(this.userUrl);
-    console.log(user);
+    const user = this.http.get<User>(this.userUrl);;
     return user;
   }
 }
