@@ -15,6 +15,7 @@ export class ViewArticleComponent implements OnInit {
     private store: Store,) {}
 
   author: string = '';
+  content: string = '';
   ngOnInit(): void {
     this.getUser()
   }
