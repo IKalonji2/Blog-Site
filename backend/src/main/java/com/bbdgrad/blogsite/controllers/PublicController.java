@@ -5,6 +5,7 @@ import com.bbdgrad.blogsite.models.DBUsers;
 import com.bbdgrad.blogsite.models.JwtTokens;
 import com.bbdgrad.blogsite.models.UserAccessInfo;
 import com.bbdgrad.blogsite.repositories.UserRepository;
+import com.bbdgrad.blogsite.services.LoginManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -13,6 +14,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.http.HttpResponse;
@@ -37,8 +39,8 @@ public class PublicController {
         return "landing";
     }
 
-    @GetMapping("/token")
-    public ResponseEntity<UserAccessInfo> getTokens(@RequestParam String code, HttpServletResponse httpResponse) {
+    @GetMapping("/loginRedirect")
+    public void getTokens(@RequestParam String code, HttpServletResponse httpResponse) throws IOException {
         String cognitoEndpoint = "https://blogsite.auth.eu-west-1.amazoncognito.com/oauth2";
         String redirectUrl = "";
         RestTemplate restTemplate = new RestTemplate();
@@ -50,7 +52,7 @@ public class PublicController {
         requestBody.add("grant_type", "authorization_code");
         requestBody.add("client_id", clientId);
         requestBody.add("code", code);
-        requestBody.add("redirect_uri", "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com/");
+        requestBody.add("redirect_uri", "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com:8081/v1/loginRedirect");
 
         HttpEntity<MultiValueMap<String, String>> formEntity = new HttpEntity<>(requestBody, headers);
 
@@ -63,10 +65,12 @@ public class PublicController {
 
         ResponseEntity<AwsUserDetails> cognitoResponse = restTemplate.exchange(cognitoEndpoint + "/userInfo", HttpMethod.POST, entity, AwsUserDetails.class);
 
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add("Access-Control-Allow-Origin", "*");
-        responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        return new ResponseEntity<>(new UserAccessInfo(cognitoResponse.getBody(), responseTokens.getBody()), responseHeaders, HttpStatus.OK);
+
+        httpResponse.addHeader("Access-Control-Allow-Origin", "*");
+        httpResponse.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+        LoginManager.getInstance().insertUserDetails(cognitoResponse.getBody().getSub(), responseTokens.getBody());
+        httpResponse.sendRedirect("http://localhost:4200?" + "username=" + cognitoResponse.getBody().getUsername() + "&sub=" + cognitoResponse.getBody().getSub());
     }
 
     @PostMapping("/restricted")
@@ -83,5 +87,15 @@ public class PublicController {
         responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
         return new ResponseEntity<>(users, responseHeaders, HttpStatus.OK);
+    }
+
+    @GetMapping("/token")
+    public ResponseEntity<JwtTokens> getTokensAlt(@RequestParam String sub) {
+        System.out.println("Received sub: " + sub);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Access-Control-Allow-Origin", "*");
+        responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        System.out.println("*** Query complete ***");
+        return new ResponseEntity<>(LoginManager.getInstance().getUserDetails(sub), responseHeaders, HttpStatus.OK);
     }
 }
