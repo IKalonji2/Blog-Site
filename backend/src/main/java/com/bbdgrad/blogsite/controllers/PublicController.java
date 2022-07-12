@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,8 +26,13 @@ public class PublicController {
     @Value("${app.clientId}")
     String clientId;
 
+    @GetMapping("/landing")
+    public String landing() {
+        return "landing";
+    }
+
     @GetMapping("/token")
-    public ResponseEntity<UserAccessInfo> getTokens(@RequestParam String code) {
+    public ResponseEntity<UserAccessInfo> getTokens(@RequestParam String code, HttpServletResponse httpResponse) {
         String cognitoEndpoint = "https://blogsite.auth.eu-west-1.amazoncognito.com/oauth2";
         String redirectUrl = "";
         RestTemplate restTemplate = new RestTemplate();
@@ -38,7 +44,7 @@ public class PublicController {
         requestBody.add("grant_type", "authorization_code");
         requestBody.add("client_id", clientId);
         requestBody.add("code", code);
-        requestBody.add("redirect_uri", "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com/");
+        requestBody.add("redirect_uri", "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com");
 
         HttpEntity<MultiValueMap<String, String>> formEntity = new HttpEntity<>(requestBody, headers);
 
@@ -51,6 +57,7 @@ public class PublicController {
 
         ResponseEntity<AwsUserDetails> cognitoResponse = restTemplate.exchange(cognitoEndpoint + "/userInfo", HttpMethod.POST, entity, AwsUserDetails.class);
 
+//        httpResponse.addHeader();
         return new ResponseEntity<>(new UserAccessInfo(cognitoResponse.getBody(), responseTokens.getBody()), HttpStatus.OK);
     }
 
