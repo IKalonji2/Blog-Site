@@ -9,7 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ViewArticleComponent } from './components/view-article/view-article.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { userReducer } from './store/store.reducers';
+import { userReducer, userTokenReducer } from './store/store.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreEffect } from './store/store.effects.ts'
 
@@ -22,7 +22,7 @@ import { StoreEffect } from './store/store.effects.ts'
     MatToolbarModule,
     HttpClientModule,
     MatMenuModule, 
-    StoreModule.forRoot({ user: userReducer }), EffectsModule.forRoot([StoreEffect]),
+    StoreModule.forRoot({ user: userReducer, token: userTokenReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent],

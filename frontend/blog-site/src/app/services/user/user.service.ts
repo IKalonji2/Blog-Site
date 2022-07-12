@@ -11,10 +11,14 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   private userUrl =
-    'http://ec2-13-244-233-86.af-south-1.compute.amazonaws.com:5000/username';
+    'https://api.github.com/users/mojombo';
 
-    getUser(): Observable<User> {
-    const user = this.http.get<User>(this.userUrl);;
+  getUser(): Observable<User> {
+    const user = this.http.get<User>(this.userUrl);
     return user;
+  }
+
+  getUserTokens(code: string): Observable<any> {
+    return this.http.get(`https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com:8081/v1/token?sub=${code}`)
   }
 }
