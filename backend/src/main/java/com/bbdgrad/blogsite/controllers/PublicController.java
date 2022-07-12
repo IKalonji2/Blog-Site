@@ -70,7 +70,7 @@ public class PublicController {
         httpResponse.addHeader("access_token", responseTokens.getBody().getAccess_token());
         httpResponse.addHeader("id_token", responseTokens.getBody().getId_token());
         httpResponse.addHeader("refresh_token", responseTokens.getBody().getRefresh_token());
-        httpResponse.sendRedirect("http://localhost:4200/");
+        httpResponse.sendRedirect("http://localhost:4200?" + "username=" + responseTokens.getBody().getAccess_token());
     }
 
     @PostMapping("/restricted")
