@@ -70,7 +70,7 @@ public class PublicController {
         httpResponse.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
         LoginManager.getInstance().insertUserDetails(cognitoResponse.getBody().getSub(), responseTokens.getBody());
-        httpResponse.sendRedirect("http://localhost:4200?" + "username=" + cognitoResponse.getBody().getUsername() + "&sub=" + cognitoResponse.getBody().getSub());
+        httpResponse.sendRedirect("https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com?" + "username=" + cognitoResponse.getBody().getUsername() + "&sub=" + cognitoResponse.getBody().getSub());
     }
 
     @PostMapping("/restricted")

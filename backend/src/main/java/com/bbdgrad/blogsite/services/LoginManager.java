@@ -23,9 +23,9 @@ public class LoginManager {
     public JwtTokens getUserDetails(String sub) {
         JwtTokens userDetails = this.userDetails.remove(sub);
         if (userDetails != null) {
-            System.out.println("Failed to retrieve");
-        } else {
             System.out.println("Success");
+        } else {
+            System.out.println("Failed to retrieve");
         }
         return userDetails;
     }
