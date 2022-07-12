@@ -69,7 +69,7 @@ public class PublicController {
         httpResponse.addHeader("Access-Control-Allow-Origin", "*");
         httpResponse.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-        LoginManager.getInstance().insertUserDetails(cognitoResponse.getBody().getSub(), new UserAccessInfo(cognitoResponse.getBody(), responseTokens.getBody()));
+        LoginManager.getInstance().insertUserDetails(cognitoResponse.getBody().getSub(), responseTokens.getBody());
         httpResponse.sendRedirect("http://localhost:4200?" + "username=" + cognitoResponse.getBody().getUsername() + "&sub=" + cognitoResponse.getBody().getSub());
     }
 
@@ -90,7 +90,7 @@ public class PublicController {
     }
 
     @GetMapping("/token")
-    public ResponseEntity<UserAccessInfo> getTokensAlt(@RequestParam String sub) {
+    public ResponseEntity<JwtTokens> getTokensAlt(@RequestParam String sub) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("Access-Control-Allow-Origin", "*");
         responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

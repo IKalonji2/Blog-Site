@@ -1,5 +1,6 @@
 package com.bbdgrad.blogsite.services;
 
+import com.bbdgrad.blogsite.models.JwtTokens;
 import com.bbdgrad.blogsite.models.UserAccessInfo;
 
 import java.util.HashMap;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 public class LoginManager {
     private static LoginManager INSTANCE;
-    private Map<String, UserAccessInfo> userDetails = new HashMap<>();
+    private Map<String, JwtTokens> userDetails = new HashMap<>();
 
     private LoginManager() {
     }
@@ -19,11 +20,11 @@ public class LoginManager {
         return INSTANCE;
     }
 
-    public UserAccessInfo getUserDetails(String sub) {
+    public JwtTokens getUserDetails(String sub) {
         return userDetails.remove(sub);
     }
 
-    public void insertUserDetails(String sub, UserAccessInfo userDetails) {
-        this.userDetails.put(sub, userDetails);
+    public void insertUserDetails(String sub, JwtTokens userTokens) {
+        this.userDetails.put(sub, userTokens);
     }
 }
