@@ -51,7 +51,7 @@ public class PublicController {
         requestBody.add("grant_type", "authorization_code");
         requestBody.add("client_id", clientId);
         requestBody.add("code", code);
-        requestBody.add("redirect_uri", "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com/");
+        requestBody.add("redirect_uri", "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com:8081/v1/token");
 
         HttpEntity<MultiValueMap<String, String>> formEntity = new HttpEntity<>(requestBody, headers);
 
@@ -64,13 +64,12 @@ public class PublicController {
 
         ResponseEntity<AwsUserDetails> cognitoResponse = restTemplate.exchange(cognitoEndpoint + "/userInfo", HttpMethod.POST, entity, AwsUserDetails.class);
 
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add("Access-Control-Allow-Origin", "*");
-        responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        responseHeaders.add("username", cognitoResponse.getBody().getUsername());
-        responseHeaders.add("access_token", responseTokens.getBody().getAccess_token());
-        responseHeaders.add("id_token", responseTokens.getBody().getId_token());
-        responseHeaders.add("refresh_token", responseTokens.getBody().getRefresh_token());
+        httpResponse.addHeader("Access-Control-Allow-Origin", "*");
+        httpResponse.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        httpResponse.addHeader("username", cognitoResponse.getBody().getUsername());
+        httpResponse.addHeader("access_token", responseTokens.getBody().getAccess_token());
+        httpResponse.addHeader("id_token", responseTokens.getBody().getId_token());
+        httpResponse.addHeader("refresh_token", responseTokens.getBody().getRefresh_token());
         httpResponse.sendRedirect("http://localhost:4200/");
     }
 
