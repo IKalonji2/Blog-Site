@@ -1,0 +1,24 @@
+<p>
+  <mat-toolbar class="nav-bar">
+    <h1 routerLink="/">Blog Site</h1>
+    <span class="example-spacer"></span>
+    <div>
+      <a class="nav-bar-option" routerLink="/article">About</a>
+      <a *ngIf="!user.username" (click)="getUser()">Login</a>
+      <button
+        class="nav-bar-user-option"
+        mat-button
+        [matMenuTriggerFor]="menu"
+        *ngIf="user.username"
+      >
+        {{ user.username }}
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before" class="nav-bar-menu">
+        <button mat-menu-item>Profile</button>
+        <button mat-menu-item>My articles</button>
+        <button mat-menu-item>Submit article</button>
+        <button mat-menu-item>Log out</button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+</p>
