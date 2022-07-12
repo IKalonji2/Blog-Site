@@ -1,4 +1,4 @@
-package com.bbdgrad.blogsite.services;
+package com.bbdgrad.blogsite.controllers;
 
 import com.bbdgrad.blogsite.models.AwsUserDetails;
 import com.bbdgrad.blogsite.models.JwtTokens;
@@ -25,13 +25,10 @@ public class PublicController {
     @Value("${app.clientId}")
     String clientId;
 
-    @GetMapping("/login")
-    public void login(HttpServletResponse httpResponse) throws IOException {
-        httpResponse.sendRedirect(cognitoLogin);
-    }
-
     @GetMapping("/token")
     public ResponseEntity<UserAccessInfo> getTokens(@RequestParam String code) {
+        String cognitoEndpoint = "https://blogsite.auth.eu-west-1.amazoncognito.com/oauth2";
+        String redirectUrl = "";
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -41,24 +38,25 @@ public class PublicController {
         requestBody.add("grant_type", "authorization_code");
         requestBody.add("client_id", clientId);
         requestBody.add("code", code);
-        requestBody.add("redirect_uri", "http://localhost:8080/v1/landing");
+        requestBody.add("redirect_uri", "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com/");
 
         HttpEntity<MultiValueMap<String, String>> formEntity = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<JwtTokens> responseTokens = restTemplate.exchange("https://blogsite.auth.eu-west-1.amazoncognito.com/oauth2/token", HttpMethod.POST, formEntity, JwtTokens.class);
+        ResponseEntity<JwtTokens> responseTokens = restTemplate.exchange(cognitoEndpoint + "/token", HttpMethod.POST, formEntity, JwtTokens.class);
 
         headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + responseTokens.getBody().getAccess_token());
 
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
 
-        ResponseEntity<AwsUserDetails> cognitoResponse = restTemplate.exchange("https://blogsite.auth.eu-west-1.amazoncognito.com/oauth2/userInfo", HttpMethod.POST, entity, AwsUserDetails.class);
+        ResponseEntity<AwsUserDetails> cognitoResponse = restTemplate.exchange(cognitoEndpoint + "/userInfo", HttpMethod.POST, entity, AwsUserDetails.class);
 
         return new ResponseEntity<>(new UserAccessInfo(cognitoResponse.getBody(), responseTokens.getBody()), HttpStatus.OK);
     }
 
     @PostMapping("/restricted")
-    public String restricted(@RequestHeader Map<String, String> headers) {
+        public String restricted(@RequestHeader Map<String, String> headers) {
         return "You now have access";
     }
+
 }
