@@ -13,7 +13,7 @@ export class UserService {
   private userUrl =
     'http://ec2-13-244-233-86.af-south-1.compute.amazonaws.com:5000/username';
 
-  getUser(): Observable<User> {
+    getUser(): Observable<User> {
     const user = this.http.get<User>(this.userUrl);;
     return user;
   }

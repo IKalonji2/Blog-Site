@@ -3,6 +3,8 @@ import { User } from '../../models/User';
 import { select, Store } from '@ngrx/store';
 import { selectUser } from '../../store/store.selectors';
 import { userLoggedIn } from '../../store/store.actions';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,7 +12,7 @@ import { userLoggedIn } from '../../store/store.actions';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private route: ActivatedRoute) {}
 
   user: User = { username: '' };
 
@@ -23,6 +25,11 @@ export class NavBarComponent implements OnInit {
         this.user = s;
       }
     });
+    this.route.queryParams
+      .subscribe(params => {
+        console.log("Params: " + params); // { orderby: "price" }
+      }
+    );
   }
 
   async getUser(): Promise<void> {
