@@ -44,7 +44,7 @@ public class PublicController {
         requestBody.add("grant_type", "authorization_code");
         requestBody.add("client_id", clientId);
         requestBody.add("code", code);
-        requestBody.add("redirect_uri", "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com");
+        requestBody.add("redirect_uri", "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com/");
 
         HttpEntity<MultiValueMap<String, String>> formEntity = new HttpEntity<>(requestBody, headers);
 
