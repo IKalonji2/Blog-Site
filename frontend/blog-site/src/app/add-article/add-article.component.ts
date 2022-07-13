@@ -34,9 +34,11 @@ export class AddArticleComponent implements OnInit {
     body: '',
   };
 
-  categories: any = [];
+  categories: CategoryModel[] = [];
   accessToken: string = '';
   userSub: string = '';
+
+  selectedValue: any;
 
   titleControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)])
   categoryControl = new FormControl('', [Validators.required])
@@ -62,9 +64,12 @@ export class AddArticleComponent implements OnInit {
   getCategories() {
     this.articleService.getCategories().subscribe(
       (data) => {
-
+        let response: any = data
+        console.log(data)
         if (data) {
-          this.categories = data;
+          response.forEach((element: CategoryModel) => {
+            this.categories.push(element as CategoryModel);
+          });
         } else {
           this.categories.push({categoryID:-1,categoryName:"error"} as CategoryModel);
         }
@@ -76,7 +81,10 @@ export class AddArticleComponent implements OnInit {
     );
   }
 
-  submitArticle(): void {
+  submitArticle(event: any): void {
+
+    this.article.category = this.selectedValue
+
     this.article.time = new Date().toDateString();
 
     this.article.user.userid = this.userSub
@@ -85,11 +93,12 @@ export class AddArticleComponent implements OnInit {
     
     //get user from user service and assign value to article.author
     const token = this.accessToken;
-    if (token == ""){
-      alert('There was an error obtaining your token');
-      return;
-    }
+    // if (token == ""){
+    //   alert('There was an error obtaining your token');
+    //   return;
+    // }
 
+    console.log(this.article)
 
     this.articleService.postNewArticle(this.article, token).subscribe(
       (data) => {
