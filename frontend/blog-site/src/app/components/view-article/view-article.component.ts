@@ -16,13 +16,24 @@ export class ViewArticleComponent implements OnInit {
     private store: Store,) {}
 
   selectArticle: ArticleModel = {
-    author: "",
+    blogID: 0,
+    body: '',
     category: {
-      name: "",
+      categoryID: 0,
+      categoryName: '',
     },
-    content:"",
-    date: "",
-    title: "",
+    time: '',
+    title: '',
+    user: {
+      age: 0,
+      biography: '',
+      email_address: '',
+      gender: '',
+      name: '',
+      surname: '',
+      userid: '',
+      username: '',
+    },
   };
 
   ngOnInit(): void {

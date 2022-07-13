@@ -10,10 +10,10 @@ export class ArticleService {
 
   URL:string = environment.article_endpoint
 
-  postArticle:string = '/article/new';
-  AllArticles:string = '/article/all';
-  ArticleByCategory:string = '/article/by-category/';
-  ArticleByAuthor:string = '/article/author/';
+  postArticle:string = '/Blog/new';
+  AllArticles:string = '/Blog/all';
+  ArticleByCategory:string = '/Blog/Category/categoryName';
+  ArticleByAuthor:string = '/Blog/User/author';
   Categories:string = "/categories"
 
   categoriesList: string[] = [];
@@ -27,7 +27,7 @@ export class ArticleService {
   }
 
   getAllArticles(){
-    return this.http.get(this.URL+this.AllArticles)
+    return this.http.get('https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com:8081/v1/Blog/all')
   }
 
   getArticleByCategory(category:string){

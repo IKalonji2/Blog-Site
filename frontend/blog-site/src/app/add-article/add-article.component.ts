@@ -10,14 +10,24 @@ import { ArticleService } from '../services/article.service';
 })
 export class AddArticleComponent implements OnInit {
   article: ArticleModel = {
+    blogID:0,
     title: '',
-    category: {
-
-      name: '',
+    category:{
+      categoryID: 0,
+      categoryName: ''
     },
-    date: '',
-    content: '',
-    author: '',
+    time: '',
+    body: '',
+    user: {
+      age: 0,
+      biography: '',
+      email_address: '',
+      gender: '',
+      name: '',
+      surname: '',
+      userid: '',
+      username: '',
+    },
   };
 
   categories: string[] = [];
@@ -47,7 +57,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   submitArticle(): void {
-    this.article.date = new Date().toDateString();
+    this.article.time = new Date().toDateString();
 
     //get user from user service and assign value to article.author
 

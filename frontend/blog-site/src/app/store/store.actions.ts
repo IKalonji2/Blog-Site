@@ -18,3 +18,8 @@ export const articleStore = createAction(
   'Article Sent',
   props<{ article: ArticleModel }>()
 );
+
+export const allArticlesStore = createAction(
+  'All articles',
+  props<{ allArticles: any}>()
+);

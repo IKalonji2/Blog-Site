@@ -6,15 +6,15 @@
     <div class="article-info">
 
       <p class="article-author">
-        {{ article.author }} ||
+        {{ article.user.username }} ||
       </p>
 
       <p class="article-date">
-        {{ article.date }} ||
+        {{ article.time }} ||
       </p>
 
       <p class="article-category">
-        {{ article.category.name }}
+        {{ article.category.categoryName }}
       </p>
     </div>
 
@@ -29,7 +29,7 @@
     <mat-card-content >
 
       <p>
-        {{ article.content}}...
+        {{ article.body }}
       </p>
     </mat-card-content>
 

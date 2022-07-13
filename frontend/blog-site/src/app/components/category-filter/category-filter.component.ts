@@ -17,12 +17,12 @@ export class CategoryFilterComponent implements OnInit {
 
   @Input() category: CategoryModel = {
 
-    name: '',
+    categoryID: 0,
+    categoryName: ''
   };
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
