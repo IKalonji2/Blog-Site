@@ -5,15 +5,19 @@ import {
 export const CategoryOptions : CategoryModel[] = [
 
   {
-    name: "Tech",
+    categoryID: 1,
+    categoryName: "Tech",
   },
   {
-    name: "Lifestyle",
+    categoryID:2,
+    categoryName: "Lifestyle",
   },
   {
-    name: "Automotive",
+    categoryID:3,
+    categoryName: "Automotive",
   },
   {
-    name: 'Health',
+    categoryID:4,
+    categoryName: 'Health',
   }
 ]

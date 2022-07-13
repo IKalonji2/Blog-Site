@@ -3,9 +3,19 @@ import {
 } from './categoryModel';
 
 export interface ArticleModel {
-  title:string,
+  blogID: number,
+  body: string,
   category: CategoryModel,
-  author: string,
-  date: string
-  content: string
+  time: string,
+  title: string,
+  user: {
+    age: number,
+    biography: string,
+    email_address: string,
+    gender: string,
+    name: string,
+    surname: string,
+    userid: string,
+    username: string,
+  },
 };

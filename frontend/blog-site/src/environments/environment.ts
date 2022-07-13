@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  article_endpoint: "http://localhost:5000/"
+  article_endpoint: "https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com:8081/v1"
 };
 
 /*

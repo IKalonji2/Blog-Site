@@ -35,11 +35,6 @@ export class NavBarComponent implements OnInit {
         });
       }
     });
-    this.route.queryParams
-      .subscribe(params => {
-        console.log("Params: " + params); // { orderby: "price" }
-      }
-    );
   }
 
   async getUser(): Promise<void> {

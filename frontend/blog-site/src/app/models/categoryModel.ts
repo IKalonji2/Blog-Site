@@ -1,3 +1,4 @@
 export interface CategoryModel {
-  name: string,
+  categoryID: number,
+  categoryName: string
 }

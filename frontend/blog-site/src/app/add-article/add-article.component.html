@@ -13,15 +13,15 @@
             <mat-form-field appearance="fill">
                 <mat-label>Category</mat-label>
                 <mat-select>
-                  <mat-option *ngFor="let category of categories" [value]="category" [ngModel]="article.category.name" [formControl]="categoryControl" required>
-                    {{category}}
+                  <mat-option *ngFor="let category of categories" [value]="category" [ngModel]="article.category.categoryName" [formControl]="categoryControl" required>
+                    {{category.categoryName}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
         <div>
             <mat-form-field>
-                <textarea matInput placeholder="Article Content" class="articleText" [ngModel]="article.content" [formControl]="contentControl" required></textarea>
+                <textarea matInput placeholder="Article Content" class="articleText" [ngModel]="article.body" [formControl]="contentControl" required></textarea>
             </mat-form-field>
         </div>
 

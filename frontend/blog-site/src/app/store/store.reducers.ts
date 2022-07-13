@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { userStore, userTokenStore, articleStore } from './store.actions';
+import { userStore, userTokenStore, articleStore, allArticlesStore } from './store.actions';
 import { User, UserTokens } from '../models/User';
 import { ArticleModel } from '../models/articleModel'
 
@@ -16,14 +16,29 @@ export const userTokenState: UserTokens = {
 };
 
 export const articleState: ArticleModel = {
-  author: "",
+  blogID: 0,
+  body: '',
   category: {
-    name: ""
+    categoryID: 0,
+    categoryName: '',
   },
-  content:"",
-  date: "",
-  title: "",
+  time: '',
+  title: '',
+  user: {
+    age: 0,
+    biography: '',
+    email_address: '',
+    gender: '',
+    name: '',
+    surname: '',
+    userid: '',
+    username: '',
+  },
 }
+
+export const allArticlesState: ArticleModel[] = [
+  articleState,
+]
 
 export const userReducer = createReducer(
     userState,
@@ -43,5 +58,12 @@ export const articleReducer = createReducer(
   articleState,
   on(articleStore, (state, { article }) => {
     return article;
+  })
+);
+
+export const allArticlesReducer = createReducer(
+  allArticlesState,
+  on(allArticlesStore, (state, { allArticles }) => {
+    return allArticles;
   })
 );

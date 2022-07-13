@@ -14,17 +14,27 @@ import { selectUser, selectUserToken } from '../store/store.selectors';
 })
 export class AddArticleComponent implements OnInit {
   article: ArticleModel = {
+    blogID:0,
     title: '',
-    category: {
-
-      name: '',
+    category:{
+      categoryID: 0,
+      categoryName: ''
     },
-    date: '',
-    content: '',
-    author: '',
+    time: '',
+    body: '',
+    user: {
+      age: 0,
+      biography: '',
+      email_address: '',
+      gender: '',
+      name: '',
+      surname: '',
+      userid: '',
+      username: '',
+    },
   };
 
-  categories: string[] = [];
+  categories: any[] = [];
 
   titleControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)])
   categoryControl = new FormControl('', [Validators.required])
@@ -43,8 +53,10 @@ export class AddArticleComponent implements OnInit {
       (data) => {
         let response: any = data;
 
-        if (response.result == 'Ok') {
-          this.categories = response.data;
+        //console.log(response)
+
+        if (data) {
+          this.categories = response;
         } else {
           this.categories.push('Error getting categories');
         }
@@ -57,7 +69,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   submitArticle(): void {
-    this.article.date = new Date().toDateString();
+    this.article.time = new Date().toDateString();
 
     //get user from user service and assign value to article.author
     const token = this.getToken();
@@ -74,7 +86,7 @@ export class AddArticleComponent implements OnInit {
         let result = postArticleResponse.result;
         if ((result = 'ok')) {
           alert('Article successfully posted');
-          this.router.navigateByUrl('')          
+          this.router.navigateByUrl('')
         }
       },
       (error) => {
