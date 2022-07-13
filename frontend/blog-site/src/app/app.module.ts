@@ -12,7 +12,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { userReducer, userTokenReducer } from './store/store.reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreEffect } from './store/store.effects.ts'
+import { StoreEffect } from './store/store.effects.ts';
+import { MaterialModule } from '../assets/Material.modules';
+import { ArticleCardComponent } from './components/article-card/article-card.component';
+import { CategoryFilterComponent } from './components/category-filter/category-filter.component';
+import { LandingComponentComponent } from './components/landing-component/landing-component.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AddArticleComponent } from './add-article/add-article.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -33,19 +38,24 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
+    NavBarComponent,
+    ViewArticleComponent,
+    ArticleCardComponent,
+    CategoryFilterComponent,
+    LandingComponentComponent,
     AddArticleComponent,
     LogoutComponent,
-    ProfileComponent, 
-    NavBarComponent, 
-    ViewArticleComponent
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MaterialModule,
+    FlexLayoutModule,
     AppRoutingModule,
     MatToolbarModule,
     HttpClientModule,
-    MatMenuModule, 
+    MatMenuModule,
     StoreModule.forRoot({ user: userReducer, token: userTokenReducer }),
     MatButtonModule,
     MatCardModule,
