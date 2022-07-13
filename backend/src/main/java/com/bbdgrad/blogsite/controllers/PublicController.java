@@ -25,6 +25,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/v1")
 public class PublicController {
+    private String cognitoEndpoint = "https://blogsite.auth.eu-west-1.amazoncognito.com/oauth2";
+
     @Value("${cognito.loginUrl}")
     String cognitoLogin;
 
@@ -34,14 +36,8 @@ public class PublicController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/landing")
-    public String landing() {
-        return "landing";
-    }
-
     @GetMapping("/loginRedirect")
     public void getTokens(@RequestParam String code, HttpServletResponse httpResponse) throws IOException {
-        String cognitoEndpoint = "https://blogsite.auth.eu-west-1.amazoncognito.com/oauth2";
         String redirectUrl = "";
         RestTemplate restTemplate = new RestTemplate();
 
@@ -97,5 +93,24 @@ public class PublicController {
         responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         System.out.println("*** Query complete ***");
         return new ResponseEntity<>(LoginManager.getInstance().getUserDetails(sub), responseHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping("/refreshToken")
+    public ResponseEntity<JwtTokens> refreshToken(@RequestHeader(name = "Authorization") String authorization, @RequestHeader(name = "RefreshToken") String refreshToken) {
+        String accessToken = authorization.split(" ")[1];
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/x-www-form-urlencoded");
+
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("grant_type", "refresh_token");
+        requestBody.add("client_id", clientId);
+        requestBody.add("refresh_token", refreshToken);
+
+        HttpEntity<MultiValueMap<String, String>> formEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<JwtTokens> responseTokens = restTemplate.exchange(cognitoEndpoint + "/token", HttpMethod.POST, formEntity, JwtTokens.class);
+        return responseTokens;
     }
 }
