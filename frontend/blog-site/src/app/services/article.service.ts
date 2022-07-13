@@ -25,7 +25,7 @@ export class ArticleService {
     token: string
   ){
 
-    const header = {'Authorization': `Bearer ${token}`}
+    const header = {'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json'}
     return this.http.post(this.postArticle, JSON.stringify(article) , { headers: header })
   }
 
