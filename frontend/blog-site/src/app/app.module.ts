@@ -16,7 +16,7 @@ import { MaterialModule } from '../assets/Material.modules';
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { CategoryFilterComponent } from './components/category-filter/category-filter.component';
 import { LandingComponentComponent } from './components/landing-component/landing-component.component';
-// import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { LandingComponentComponent } from './components/landing-component/landin
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    // FlexLayoutModule,
+    FlexLayoutModule,
     AppRoutingModule,
     MatToolbarModule,
     HttpClientModule,
