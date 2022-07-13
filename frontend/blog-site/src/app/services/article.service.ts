@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { ArticleModel } from '../models/articleModel';
 
 @Injectable({
@@ -41,9 +41,11 @@ export class ArticleService {
   */
 
   postNewArticle(
-    article: ArticleModel
+    article: ArticleModel,
+    token: string
   ){
-    return this.http.post(this.URL+this.postArticle, article)
+    const header = new HttpHeaders().set('authorization', token)
+    return this.http.post(this.URL+this.postArticle, article, {headers: header})
   }
   
   /*
