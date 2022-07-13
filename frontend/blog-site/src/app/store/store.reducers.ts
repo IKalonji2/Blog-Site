@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { userStore, userTokenStore, articleStore, allArticlesStore } from './store.actions';
+import { userStore, userTokenStore, articleStore, allArticlesStore, userSubStore } from './store.actions';
 import { User, UserTokens } from '../models/User';
 import { ArticleModel } from '../models/articleModel'
 
@@ -36,9 +36,18 @@ export const articleState: ArticleModel = {
   },
 }
 
+export const subState: string = '';
+
 export const allArticlesState: ArticleModel[] = [
   articleState,
 ]
+
+export const subReducer = createReducer(
+  subState,
+on(userSubStore, (state, { sub }) => {
+  return sub;
+})
+);
 
 export const userReducer = createReducer(
     userState,

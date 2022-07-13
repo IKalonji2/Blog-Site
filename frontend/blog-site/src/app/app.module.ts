@@ -10,7 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ViewArticleComponent } from './components/view-article/view-article.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { userReducer, userTokenReducer, articleReducer } from './store/store.reducers';
+import { userReducer, userTokenReducer, articleReducer, subReducer } from './store/store.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreEffect } from './store/store.effects.ts';
 import { MaterialModule } from '../assets/Material.modules';
@@ -52,7 +52,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatToolbarModule,
     HttpClientModule,
     MatMenuModule,
-    StoreModule.forRoot({ user: userReducer, token: userTokenReducer, article: articleReducer }),
+    StoreModule.forRoot({ user: userReducer, token: userTokenReducer, article: articleReducer, sub: subReducer }),
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,

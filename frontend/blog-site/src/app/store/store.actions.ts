@@ -14,6 +14,11 @@ export const userTokenStore = createAction(
   props<{ token: UserTokens }>()
 );
 
+export const userSubStore = createAction(
+  '[Sub code] Success',
+  props<{ sub: string }>()
+);
+
 export const articleStore = createAction(
   'Article Sent',
   props<{ article: ArticleModel }>()

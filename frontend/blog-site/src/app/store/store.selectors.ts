@@ -4,6 +4,8 @@ import { User, UserTokens } from '../models/User';
 
 export const selectUser = createFeatureSelector<User>('user');
 
+export const selectSub = createFeatureSelector<string>('sub');
+
 export const selectUserToken = createFeatureSelector<UserTokens>('token');
 
 export const selectArticle = createFeatureSelector<ArticleModel>('article');

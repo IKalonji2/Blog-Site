@@ -4,7 +4,7 @@ import { Route, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { ArticleModel, NewArticleModel } from '../models/articleModel';
 import { ArticleService } from '../services/article.service';
-import { selectUser, selectUserToken } from '../store/store.selectors';
+import { selectSub, selectUser, selectUserToken } from '../store/store.selectors';
 
 
 @Component({
@@ -25,6 +25,7 @@ export class AddArticleComponent implements OnInit {
 
   categories: NewArticleModel[] = [];
   accessToken: string = '';
+  userSub: string = '';
 
   titleControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)])
   categoryControl = new FormControl('', [Validators.required])
@@ -36,6 +37,15 @@ export class AddArticleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
+    let sub = this.store.pipe(select(selectSub));
+    sub.subscribe((s) => {
+      if (!s) {
+        return "";
+      } else {
+        this.userSub = s;
+        return s
+      }
+    });
   }
 
   getCategories() {

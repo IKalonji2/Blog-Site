@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/User';
 import { select, Store } from '@ngrx/store';
 import { selectUser, selectUserToken } from '../../store/store.selectors';
-import { userTokenStore, userStore } from '../../store/store.actions';
+import { userTokenStore, userStore, userSubStore } from '../../store/store.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
 
@@ -30,6 +30,7 @@ export class NavBarComponent implements OnInit {
         this.store.dispatch(
           userStore({ user: { username: params['username'] } })
         );
+        this.store.dispatch(userSubStore({ sub: params['sub'] }));
         this.userService.getUserTokens(this.code).subscribe((data) => {
           this.store.dispatch(userTokenStore({ token: data }));
         });
