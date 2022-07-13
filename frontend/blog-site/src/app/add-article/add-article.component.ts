@@ -72,7 +72,7 @@ export class AddArticleComponent implements OnInit {
       (data) => {
         let postArticleResponse: any = data;
         let result = postArticleResponse.result;
-        if ((result = 'Ok')) {
+        if ((result = 'ok')) {
           alert('Article successfully posted');
           this.router.navigateByUrl('')          
         }
