@@ -1,3 +1,4 @@
+import { ArticleModel } from './../models/articleModel';
 import { createAction, props } from '@ngrx/store';
 import { User, UserTokens } from '../models/User';
 
@@ -11,4 +12,9 @@ export const userStore = createAction(
 export const userTokenStore = createAction(
   '[User token] Success',
   props<{ token: UserTokens }>()
+);
+
+export const articleStore = createAction(
+  'Article Sent',
+  props<{ article: ArticleModel }>()
 );
