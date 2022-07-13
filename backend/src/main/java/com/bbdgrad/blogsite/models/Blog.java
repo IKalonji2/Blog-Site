@@ -1,32 +1,28 @@
 package com.bbdgrad.blogsite.models;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import net.bytebuddy.description.type.TypeList;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Table(name = "blog")
+@Table(name = "Blog")
 @Entity
-public class blog {
+public class Blog {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long blogID;
 
     @ManyToOne
-    @JoinColumn(name = "categoryID", referencedColumnName = "categoryID")
-    private category category;
+    @JoinColumn(name = "category_categoryid")
+    private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "userID")
-    private user user;
+    @JoinColumn(name = "user_userid")
+    private User user;
 
     private String title;
     private String body;
@@ -41,19 +37,19 @@ public class blog {
         this.blogID = blogID;
     }
 
-    public com.bbdgrad.blogsite.models.category getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(com.bbdgrad.blogsite.models.category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public com.bbdgrad.blogsite.models.user getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(com.bbdgrad.blogsite.models.user user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

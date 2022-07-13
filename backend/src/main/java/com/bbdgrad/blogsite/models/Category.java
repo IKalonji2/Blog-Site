@@ -6,9 +6,9 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Data
-@Table(name = "category")
+@Table(name = "Category")
 @Entity
-public class category {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryID;

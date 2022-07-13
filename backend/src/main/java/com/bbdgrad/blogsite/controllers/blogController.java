@@ -1,33 +1,29 @@
 package com.bbdgrad.blogsite.controllers;
 
-import com.bbdgrad.blogsite.models.blog;
-import com.bbdgrad.blogsite.models.category;
-import com.bbdgrad.blogsite.models.user;
-import com.bbdgrad.blogsite.repositories.blogRepository;
-import com.bbdgrad.blogsite.repositories.categoryRepository;
+import com.bbdgrad.blogsite.models.Blog;
+import com.bbdgrad.blogsite.repositories.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1")
 public class blogController {
     @Autowired
-    private blogRepository blogRepo;
+    private BlogRepository blogRepo;
 
-    @GetMapping("/blog/all")
-    public ResponseEntity<blog> getBlogData()
+    @GetMapping("/Blog/all")
+    public ResponseEntity<Blog> getBlogData()
     {
-        List<blog> blogs = blogRepo.findAll();
-        return new ResponseEntity(blogs, HttpStatus.OK);
+        List<Blog> Blogs = blogRepo.findAll();
+        return new ResponseEntity(Blogs, HttpStatus.OK);
     }
 
 
-    @GetMapping("/blog/category/categoryName")
+    @GetMapping("/Blog/Category/categoryName")
         public ResponseEntity<?> getBlogbyCategory(@RequestParam String categoryName)
         {
             if(blogRepo.findByCategoryCategoryName(categoryName).size() != 0)
@@ -38,7 +34,7 @@ public class blogController {
             }
         }
 
-    @GetMapping("/blog/user/author")
+    @GetMapping("/Blog/User/author")
         public ResponseEntity<?> getBlogByUserName(@RequestParam String userName)
         {
             if (blogRepo.findByUserName(userName).size() != 0)
@@ -50,13 +46,9 @@ public class blogController {
             }
         }
 
-    @PostMapping("blog/new")
-    public blog addBlog(@RequestBody blog newblog)
+    @PostMapping("Blog/new")
+    public Blog addBlog(@RequestBody Blog newblog)
     {
         return blogRepo.save(newblog);
     }
-
-
-
-
 }
