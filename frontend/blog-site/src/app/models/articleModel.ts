@@ -3,7 +3,7 @@ import {
 } from './categoryModel';
 
 export interface ArticleModel {
-  blogID: number,
+  blogID?: number,
   body: string,
   category: CategoryModel,
   time: string,
@@ -19,10 +19,3 @@ export interface ArticleModel {
     username: string,
   },
 };
-
-export interface NewArticleModel {
-  category:CategoryModel,
-  title: string,
-  body: string,
-  time: string
-}

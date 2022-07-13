@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { ArticleModel, NewArticleModel } from '../models/articleModel';
+import { ArticleModel} from '../models/articleModel';
 import { ArticleService } from '../services/article.service';
 import { selectSub, selectUser, selectUserToken } from '../store/store.selectors';
 
@@ -13,17 +13,27 @@ import { selectSub, selectUser, selectUserToken } from '../store/store.selectors
   styleUrls: ['./add-article.component.css'],
 })
 export class AddArticleComponent implements OnInit {
-  article: NewArticleModel = {
+  article: ArticleModel = {
     title: '',
     category:{
       categoryID: 0,
       categoryName: ''
     },
+    user:{
+      age: 0,
+      biography: '',
+      email_address: '',
+      gender: '',
+      name: '',
+      surname: '',
+      userid: '',
+      username: '',
+    },
     time: '',
     body: '',
   };
 
-  categories: NewArticleModel[] = [];
+  categories: ArticleModel[] = [];
   accessToken: string = '';
   userSub: string = '';
 
@@ -58,18 +68,21 @@ export class AddArticleComponent implements OnInit {
         if (data) {
           this.categories = response;
         } else {
-          this.categories.push({category:{categoryID:-1,categoryName:"error"}} as NewArticleModel);
+          this.categories.push({category:{categoryID:-1,categoryName:"error"}} as ArticleModel);
         }
       },
       (error) => {
         console.log(error);
-        this.categories.push({category:{categoryID:-1,categoryName:"error"}} as NewArticleModel);
+        this.categories.push({category:{categoryID:-1,categoryName:"error"}} as ArticleModel);
       }
     );
   }
 
   submitArticle(): void {
     this.article.time = new Date().toDateString();
+
+    this.article.user.userid = this.userSub
+
     this.getToken();
     
     //get user from user service and assign value to article.author
