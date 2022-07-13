@@ -61,4 +61,8 @@ export class NavBarComponent implements OnInit {
       }
     });
   }
+
+  addArticle(){
+    this.router.navigateByUrl("add-article")
+  }
 }

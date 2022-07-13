@@ -20,8 +20,6 @@ import { LandingComponentComponent } from './components/landing-component/landin
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AddArticleComponent } from './add-article/add-article.component';
-import { LogoutComponent } from './logout/logout.component';
-import { ProfileComponent } from './profile/profile.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,8 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import {MatSelectModule} from '@angular/material/select';
 
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -44,8 +41,7 @@ import { FormsModule } from '@angular/forms';
     CategoryFilterComponent,
     LandingComponentComponent,
     AddArticleComponent,
-    LogoutComponent,
-    ProfileComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -63,7 +59,8 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     HttpClientModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
