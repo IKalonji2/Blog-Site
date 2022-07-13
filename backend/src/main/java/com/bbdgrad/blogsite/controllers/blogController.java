@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1")
@@ -58,12 +60,19 @@ public class blogController {
         }
 
     @PostMapping("Blog/new")
-    public ResponseEntity<Blog> addBlog(@RequestBody Blog newblog)
+    public ResponseEntity<Map<String, String>> addBlog(@RequestBody Blog newblog)
     {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("Access-Control-Allow-Origin", "*");
         responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         Blog blog = blogRepo.save(newblog);
-        return new ResponseEntity<>(blog, responseHeaders, HttpStatus.OK);
+        Map<String, String> loadStatus = new HashMap<>();
+        if (blog != null) {
+            loadStatus.put("result", "ok");
+            return new ResponseEntity<>(loadStatus, responseHeaders, HttpStatus.OK);
+        } else {
+            loadStatus.put("result", "fail");
+            return new ResponseEntity<>(loadStatus, responseHeaders, HttpStatus.OK);
+        }
     }
 }
