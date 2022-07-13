@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { ArticleModel } from '../models/articleModel';
 import { ArticleService } from '../services/article.service';
@@ -30,7 +31,8 @@ export class AddArticleComponent implements OnInit {
   contentControl = new FormControl('', [Validators.required, Validators.maxLength(250)])
 
   constructor(private articleService: ArticleService,
-    private store: Store) {}
+              private store: Store,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.getCategories();
@@ -72,6 +74,7 @@ export class AddArticleComponent implements OnInit {
         let result = postArticleResponse.result;
         if ((result = 'Ok')) {
           alert('Article successfully posted');
+          this.router.navigateByUrl('')          
         }
       },
       (error) => {
