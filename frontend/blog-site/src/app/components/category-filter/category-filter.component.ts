@@ -18,9 +18,6 @@ export class CategoryFilterComponent implements OnInit {
   @Input() category: CategoryModel = {
 
     name: '',
-    color: {
-      background: '',
-    },
   };
 
   constructor() { }

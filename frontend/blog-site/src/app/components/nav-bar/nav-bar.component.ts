@@ -43,7 +43,7 @@ export class NavBarComponent implements OnInit {
       if (!s) {
         return;
       } else {
-        console.log('user', s);
+        //console.log('user', s);
       }
     });
 
@@ -52,7 +52,7 @@ export class NavBarComponent implements OnInit {
       if (!s) {
         return;
       } else {
-        console.log('token', s);
+        //console.log('token', s);
       }
     });
   }

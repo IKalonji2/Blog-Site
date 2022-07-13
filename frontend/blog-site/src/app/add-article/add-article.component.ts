@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticleModel } from '../models/articleModel';
-import { CategoryModel } from '../models/categoryModel';
 import { ArticleService } from '../services/article.service';
 
 @Component({
@@ -15,9 +14,6 @@ export class AddArticleComponent implements OnInit {
     category: {
 
       name: '',
-      color: {
-        background: ''
-      },
     },
     date: '',
     content: '',

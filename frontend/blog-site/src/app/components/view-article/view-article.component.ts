@@ -1,7 +1,8 @@
+import { ArticleModel } from './../../models/articleModel';
+import { selectArticle } from './../../store/store.selectors';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { selectUser } from '../../store/store.selectors';
 
 @Component({
   selector: 'app-view-article',
@@ -11,23 +12,32 @@ import { selectUser } from '../../store/store.selectors';
 export class ViewArticleComponent implements OnInit {
   @Input()
   expectedProp!: { title: string; date: string; component: string };
-  constructor(private router: ActivatedRoute, private route: ActivatedRoute, 
+  constructor(private router: ActivatedRoute, private route: ActivatedRoute,
     private store: Store,) {}
 
-  author: string = '';
+  selectArticle: ArticleModel = {
+    author: "",
+    category: {
+      name: "",
+    },
+    content:"",
+    date: "",
+    title: "",
+  };
+
   ngOnInit(): void {
-    this.getUser()
+    this.getArticle()
   }
 
-  async getUser(): Promise<void> {
-    let shop = this.store.pipe(select(selectUser));
-    shop.subscribe((s) => {
+  async getArticle(): Promise<void> {
+    let getArticle = this.store.pipe(select(selectArticle));
+    getArticle.subscribe((s) => {
       if (!s) {
         return;
       } else {
-        this.author = s.username;
-        console.log('user', s);
+        this.selectArticle = s ;
       }
     });
   }
+
 }
