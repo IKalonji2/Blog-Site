@@ -1,9 +1,8 @@
 package com.bbdgrad.blogsite.controllers;
 
 import com.bbdgrad.blogsite.models.AwsUserDetails;
-import com.bbdgrad.blogsite.models.DBUsers;
 import com.bbdgrad.blogsite.models.JwtTokens;
-import com.bbdgrad.blogsite.models.UserAccessInfo;
+import com.bbdgrad.blogsite.models.User;
 import com.bbdgrad.blogsite.repositories.UserRepository;
 import com.bbdgrad.blogsite.services.LoginManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.http.HttpResponse;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,17 +68,6 @@ public class PublicController {
     @PostMapping("/restricted")
         public String restricted(@RequestHeader Map<String, String> headers) {
         return "You now have access";
-    }
-
-    @GetMapping("/users")
-    public ResponseEntity<List<DBUsers>> users() {
-        List<DBUsers> users = userRepository.findAll();
-
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add("Access-Control-Allow-Origin", "*");
-        responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-        return new ResponseEntity<>(users, responseHeaders, HttpStatus.OK);
     }
 
     @GetMapping("/token")

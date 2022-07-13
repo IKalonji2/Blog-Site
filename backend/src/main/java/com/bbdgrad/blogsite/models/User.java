@@ -2,16 +2,15 @@ package com.bbdgrad.blogsite.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
+@Table(name = "[User]")
 @Entity
-@Table(name = "[user]")
-public class DBUsers {
+
+public class User {
     @Id
-    private String userID;
+    private String userid;
     private String name;
     private String surname;
     private String email_address;
