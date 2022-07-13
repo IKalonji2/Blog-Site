@@ -3,7 +3,6 @@
     <h1 routerLink="/">Blog Site</h1>
     <span class="example-spacer"></span>
     <div>
-      <a class="nav-bar-option">About</a>
       <a
         *ngIf="!user.username"
         href="https://blogsite.auth.eu-west-1.amazoncognito.com/login?response_type=code&client_id=mveo5kbuf4lrka1fnn13qm6s&redirect_uri=https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com:8081/v1/loginRedirect&scope=email+openid+phone"
@@ -19,11 +18,11 @@
       </button>
       <mat-menu #menu="matMenu" xPosition="before" class="nav-bar-menu">
         <button mat-menu-item (click)="getUser()">Profile</button>
-        <button mat-menu-item routerLink="/article">My articles</button>
-        <button mat-menu-item>Submit article</button>
+        <button mat-menu-item>My articles</button>
+        <button mat-menu-item routerLink="/add-article">Submit article</button>
         <a
           mat-menu-item
-          href="https://blogsite.auth.eu-west-1.amazoncognito.com/logout?client_id=mveo5kbuf4lrka1fnn13qm6s&logout_uri=https://blogsite.auth.eu-west-1.amazoncognito.com"
+          href="https://blogsite.auth.eu-west-1.amazoncognito.com/logout?client_id=mveo5kbuf4lrka1fnn13qm6s&logout_uri=https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com"
           >Log out</a
         >
       </mat-menu>

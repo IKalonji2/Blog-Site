@@ -38,6 +38,7 @@ export class NavBarComponent implements OnInit {
   }
 
   async getUser(): Promise<void> {
+    console.log('Coming soon')
     let getUser = this.store.pipe(select(selectUser));
     getUser.subscribe((s) => {
       if (!s) {
