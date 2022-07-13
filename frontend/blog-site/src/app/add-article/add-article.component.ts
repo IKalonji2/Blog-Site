@@ -63,7 +63,7 @@ export class AddArticleComponent implements OnInit {
     const token = this.getToken();
 
     if (token == ""){
-      alert('There was an obtaining your token');
+      alert('There was an error obtaining your token');
       return;
     }
 
