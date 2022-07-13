@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { ArticleModel } from '../models/articleModel';
-import { CategoryModel } from '../models/categoryModel';
 import { ArticleService } from '../services/article.service';
 import { selectUser, selectUserToken } from '../store/store.selectors';
 
@@ -18,9 +17,6 @@ export class AddArticleComponent implements OnInit {
     category: {
 
       name: '',
-      color: {
-        background: ''
-      },
     },
     date: '',
     content: '',

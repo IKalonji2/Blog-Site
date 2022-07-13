@@ -1,45 +1,9 @@
 <article>
-  <h1 class="title">Article title</h1>
-  <p class="date">01 July 2022</p>
-  <p class="date">{{ author }}</p>
+  <h1 class="title">{{ selectArticle.title }}</h1>
+  <p class="date">{{ selectArticle.date }}</p>
+  <p class="date">{{ selectArticle.category.name }}</p>
+  <p class="date">{{ selectArticle.author }}</p>
   <p class="content">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis sequi ut
-    incidunt earum nemo veritatis, ipsam asperiores, aperiam numquam, porro non?
-    Sunt beatae praesentium animi molestiae blanditiis aut facere repudiandae.
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam officiis
-    perspiciatis, quas tempora adipisci sint quidem officia eligendi. Possimus
-    asperiores odit dignissimos, exercitationem cupiditate odio neque eveniet
-    velit deserunt suscipit. Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Ratione quasi ducimus optio! Repellat nulla cumque deserunt, ut
-    impedit quisquam labore voluptas tempora quibusdam, fugiat vitae sed
-    provident quae fuga deleniti! Lorem ipsum dolor sit amet consectetur
-    adipisicing elit. Ipsa delectus tenetur cupiditate quibusdam, voluptate
-    reiciendis autem itaque sed asperiores. Alias laudantium quia facilis iusto
-    nobis quam corrupti labore sequi vitae. Lorem ipsum dolor sit amet
-    consectetur adipisicing elit. Omnis sequi ut incidunt earum nemo veritatis,
-    ipsam asperiores, aperiam numquam, porro non? Sunt beatae praesentium animi
-    molestiae blanditiis aut facere repudiandae. Lorem ipsum dolor sit amet
-    consectetur, adipisicing elit. Nam officiis perspiciatis, quas tempora
-    adipisci sint quidem officia eligendi. Possimus asperiores odit dignissimos,
-    exercitationem cupiditate odio neque eveniet velit deserunt suscipit. Lorem
-    ipsum dolor sit amet consectetur, adipisicing elit. Ratione quasi ducimus
-    optio! Repellat nulla cumque deserunt, ut impedit quisquam labore voluptas
-    tempora quibusdam, fugiat vitae sed provident quae fuga deleniti! Lorem
-    ipsum dolor sit amet consectetur adipisicing elit. Ipsa delectus tenetur
-    cupiditate quibusdam, voluptate reiciendis autem itaque sed asperiores.
-    Alias laudantium quia facilis iusto nobis quam corrupti labore sequi vitae.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis sequi ut
-    incidunt earum nemo veritatis, ipsam asperiores, aperiam numquam, porro non?
-    Sunt beatae praesentium animi molestiae blanditiis aut facere repudiandae.
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam officiis
-    perspiciatis, quas tempora adipisci sint quidem officia eligendi. Possimus
-    asperiores odit dignissimos, exercitationem cupiditate odio neque eveniet
-    velit deserunt suscipit. Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Ratione quasi ducimus optio! Repellat nulla cumque deserunt, ut
-    impedit quisquam labore voluptas tempora quibusdam, fugiat vitae sed
-    provident quae fuga deleniti! Lorem ipsum dolor sit amet consectetur
-    adipisicing elit. Ipsa delectus tenetur cupiditate quibusdam, voluptate
-    reiciendis autem itaque sed asperiores. Alias laudantium quia facilis iusto
-    nobis quam corrupti labore sequi vitae.
+    {{ selectArticle.content }}
   </p>
 </article>

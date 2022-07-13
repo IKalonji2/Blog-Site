@@ -1,3 +1,5 @@
+import { selectArticle } from './../../store/store.selectors';
+import { articleStore } from './../../store/store.actions';
 import {
   Component,
   OnInit,
@@ -8,9 +10,7 @@ import {
   ArticleModel
 } from '../../models/articleModel';
 
-import {
-  CategoryOptions
-} from '../../categoryMockData';
+import { select, Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-article-card',
@@ -23,15 +23,31 @@ export class ArticleCardComponent implements OnInit {
 
     //TOD: remove - ts.config
     author: "",
-    category: CategoryOptions[0],
+    category: {
+      name: "",
+    },
     content:"",
     date: "",
     title: "",
   };
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
   }
 
+  showArticle() {
+    this.store.dispatch(
+      articleStore({ article: this.article })
+    );
+
+    let getArticle = this.store.pipe(select(selectArticle));
+    getArticle.subscribe((s) => {
+      if (!s) {
+        return;
+      } else {
+        console.log('article: ', s);
+      }
+    });
+  }
 }
