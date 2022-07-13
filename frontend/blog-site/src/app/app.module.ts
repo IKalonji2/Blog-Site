@@ -1,8 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { ViewArticleComponent } from './components/view-article/view-article.component';
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { userReducer, userTokenReducer } from './store/store.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreEffect } from './store/store.effects.ts'
+
 import { AppRoutingModule } from './app-routing.module';
 import { AddArticleComponent } from './add-article/add-article.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -20,17 +31,25 @@ import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     AddArticleComponent,
     LogoutComponent,
-    ProfileComponent
+    ProfileComponent, 
+    NavBarComponent, 
+    ViewArticleComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    MatToolbarModule,
+    HttpClientModule,
+    MatMenuModule, 
+    StoreModule.forRoot({ user: userReducer, token: userTokenReducer }),
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -40,6 +59,6 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

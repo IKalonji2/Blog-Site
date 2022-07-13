@@ -104,5 +104,7 @@
       }
     }
   },
-  "defaultProject": "blog-site"
+  "cli": {
+    "analytics": false
+  }
 }

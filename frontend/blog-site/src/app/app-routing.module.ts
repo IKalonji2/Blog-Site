@@ -1,4 +1,8 @@
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { ViewArticleComponent } from './components/view-article/view-article.component'
+
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AddArticleComponent } from './add-article/add-article.component';
@@ -17,6 +21,10 @@ const routes: Routes = [
   {
     path: "logout",
     component: LogoutComponent
+  },
+  { 
+    path: 'article', 
+    component: ViewArticleComponent 
   }
 
 ]
@@ -30,3 +38,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
