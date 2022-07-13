@@ -4,7 +4,6 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ViewArticleComponent } from './components/view-article/view-article.component'
 
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
 import { AddArticleComponent } from './add-article/add-article.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LogoutComponent } from './logout/logout.component';
