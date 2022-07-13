@@ -19,3 +19,10 @@ export interface ArticleModel {
     username: string,
   },
 };
+
+export interface NewArticleModel {
+  category:CategoryModel,
+  title: string,
+  body: string,
+  time: string
+}
