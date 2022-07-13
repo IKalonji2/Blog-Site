@@ -24,7 +24,7 @@ export class ArticleService {
     article: ArticleModel,
     token: string
   ){
-    const header = new HttpHeaders().set('authorization', token)
+    const header = new HttpHeaders().set('Authorization', `Bearer ${token}`)
     return this.http.post(this.postArticle, article, {headers: header})
   }
 

@@ -35,6 +35,7 @@ export class AddArticleComponent implements OnInit {
   };
 
   categories: any[] = [];
+  accessToken: string = '';
 
   titleControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)])
   categoryControl = new FormControl('', [Validators.required])
@@ -70,17 +71,17 @@ export class AddArticleComponent implements OnInit {
 
   submitArticle(): void {
     this.article.time = new Date().toDateString();
-
+    this.getToken();
+    
     //get user from user service and assign value to article.author
-    const token = this.getToken();
-
+    const token = this.accessToken;
     if (token == ""){
       alert('There was an error obtaining your token');
       return;
     }
 
 
-    this.articleService.postNewArticle(this.article, token).subscribe(
+    this.articleService.postNewArticle(this.article, 'token').subscribe(
       (data) => {
         let postArticleResponse: any = data;
         let result = postArticleResponse.result;
@@ -102,7 +103,7 @@ export class AddArticleComponent implements OnInit {
       if (!s) {
         return "";
       } else {
-        console.log('token', s);
+        this.accessToken = s.access_token;
         return s.access_token
       }
     });
