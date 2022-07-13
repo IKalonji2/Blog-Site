@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { ArticleModel } from '../models/articleModel';
+import { ArticleModel, NewArticleModel } from '../models/articleModel';
 import { ArticleService } from '../services/article.service';
 import { selectUser, selectUserToken } from '../store/store.selectors';
 
@@ -13,8 +13,7 @@ import { selectUser, selectUserToken } from '../store/store.selectors';
   styleUrls: ['./add-article.component.css'],
 })
 export class AddArticleComponent implements OnInit {
-  article: ArticleModel = {
-    blogID:0,
+  article: NewArticleModel = {
     title: '',
     category:{
       categoryID: 0,
@@ -22,19 +21,9 @@ export class AddArticleComponent implements OnInit {
     },
     time: '',
     body: '',
-    user: {
-      age: 0,
-      biography: '',
-      email_address: '',
-      gender: '',
-      name: '',
-      surname: '',
-      userid: '',
-      username: '',
-    },
   };
 
-  categories: any[] = [];
+  categories: NewArticleModel[] = [];
   accessToken: string = '';
 
   titleControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)])
@@ -59,12 +48,12 @@ export class AddArticleComponent implements OnInit {
         if (data) {
           this.categories = response;
         } else {
-          this.categories.push('Error getting categories');
+          this.categories.push({category:{categoryID:-1,categoryName:"error"}} as NewArticleModel);
         }
       },
       (error) => {
         console.log(error);
-        this.categories.push('Error getting categories');
+        this.categories.push({category:{categoryID:-1,categoryName:"error"}} as NewArticleModel);
       }
     );
   }

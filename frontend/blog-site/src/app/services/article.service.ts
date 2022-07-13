@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { ArticleModel } from '../models/articleModel';
+import { ArticleModel, NewArticleModel } from '../models/articleModel';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class ArticleService {
   constructor(private http: HttpClient) { }
 
   postNewArticle(
-    article: ArticleModel,
+    article: NewArticleModel,
     token: string
   ){
     const header = new HttpHeaders().set('Authorization', `Bearer ${token}`)
