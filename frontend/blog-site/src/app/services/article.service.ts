@@ -41,7 +41,7 @@ export class ArticleService {
   }
 
   getCategories(){
-    return this.http.get(this.URL+this.Categories)
+    return this.http.get('https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com:8081/v1/categories')
   }
 
 }

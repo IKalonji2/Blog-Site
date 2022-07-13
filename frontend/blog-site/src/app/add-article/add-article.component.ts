@@ -34,7 +34,7 @@ export class AddArticleComponent implements OnInit {
     },
   };
 
-  categories: string[] = [];
+  categories: any[] = [];
 
   titleControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)])
   categoryControl = new FormControl('', [Validators.required])
@@ -53,8 +53,10 @@ export class AddArticleComponent implements OnInit {
       (data) => {
         let response: any = data;
 
-        if (response.result == 'Ok') {
-          this.categories = response.data;
+        //console.log(response)
+
+        if (data) {
+          this.categories = response;
         } else {
           this.categories.push('Error getting categories');
         }
@@ -84,7 +86,7 @@ export class AddArticleComponent implements OnInit {
         let result = postArticleResponse.result;
         if ((result = 'ok')) {
           alert('Article successfully posted');
-          this.router.navigateByUrl('')          
+          this.router.navigateByUrl('')
         }
       },
       (error) => {
