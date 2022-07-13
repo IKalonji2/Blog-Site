@@ -85,7 +85,7 @@ export class AddArticleComponent implements OnInit {
 
     this.article.category = this.selectedValue
 
-    this.article.time = new Date().toDateString();
+    this.article.time = new Date().toISOString().slice(0,10) + " " +"00:00:00";
 
     this.article.user.userid = this.userSub
 
