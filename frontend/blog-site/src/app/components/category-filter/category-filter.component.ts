@@ -6,7 +6,7 @@ import {
 
  import {
   CategoryModel
-} from 'src/app/models/categoryModel';
+} from '../../models/categoryModel';
 
 @Component({
   selector: 'app-category-filter',

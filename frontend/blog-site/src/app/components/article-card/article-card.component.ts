@@ -6,11 +6,11 @@ import {
 
 import {
   ArticleModel
-} from 'src/app/models/articleModel';
+} from '../../models/articleModel';
 
 import {
   CategoryOptions
-} from 'src/app/categoryMockData';
+} from '../../categoryMockData';
 
 @Component({
   selector: 'app-article-card',

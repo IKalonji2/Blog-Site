@@ -5,11 +5,11 @@ import {
 
 import {
   ArticleData
-} from 'src/app/articleCardMockData';
+} from '../../articleCardMockData';
 
 import {
   CategoryOptions
-} from 'src/app/categoryMockData';
+} from '../../categoryMockData';
 
 @Component({
   selector: 'app-landing-component',
