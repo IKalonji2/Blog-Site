@@ -24,8 +24,9 @@ export class ArticleService {
     article: ArticleModel,
     token: string
   ){
-    const header = new HttpHeaders().set('Authorization', `Bearer ${token}`)
-    return this.http.post(this.postArticle, article, {headers: header})
+
+    const header = {'Authorization': `Bearer ${token}`}
+    return this.http.post(this.postArticle, JSON.stringify(article) , { headers: header })
   }
 
   getAllArticles(){
