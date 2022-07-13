@@ -3,6 +3,7 @@ package com.bbdgrad.blogsite.controllers;
 import com.bbdgrad.blogsite.models.Blog;
 import com.bbdgrad.blogsite.repositories.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,13 @@ public class blogController {
     private BlogRepository blogRepo;
 
     @GetMapping("/Blog/all")
-    public ResponseEntity<Blog> getBlogData()
+    public ResponseEntity<List<Blog>> getBlogData()
     {
         List<Blog> Blogs = blogRepo.findAll();
-        return new ResponseEntity(Blogs, HttpStatus.OK);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Access-Control-Allow-Origin", "*");
+        responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        return new ResponseEntity<>(Blogs, responseHeaders, HttpStatus.OK);
     }
 
 
@@ -28,7 +32,11 @@ public class blogController {
         {
             if(blogRepo.findByCategoryCategoryName(categoryName).size() != 0)
             {
-                return ResponseEntity.ok(blogRepo.findByCategoryCategoryName(categoryName));
+                HttpHeaders responseHeaders = new HttpHeaders();
+                responseHeaders.add("Access-Control-Allow-Origin", "*");
+                responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+                return new ResponseEntity<>(blogRepo.findByCategoryCategoryName(categoryName), responseHeaders, HttpStatus.OK);
             } else {
                 return ResponseEntity.notFound().build();
             }
@@ -37,9 +45,12 @@ public class blogController {
     @GetMapping("/Blog/User/author")
         public ResponseEntity<?> getBlogByUserName(@RequestParam String userName)
         {
-            if (blogRepo.findByUserName(userName).size() != 0)
+            if (blogRepo.findByUserUsername(userName).size() != 0)
             {
-                return ResponseEntity.ok(blogRepo.findByUserName(userName));
+                HttpHeaders responseHeaders = new HttpHeaders();
+                responseHeaders.add("Access-Control-Allow-Origin", "*");
+                responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                return new ResponseEntity<>(blogRepo.findByUserUsername(userName), responseHeaders, HttpStatus.OK);
             }
             else {
                 return ResponseEntity.notFound().build();
@@ -47,8 +58,12 @@ public class blogController {
         }
 
     @PostMapping("Blog/new")
-    public Blog addBlog(@RequestBody Blog newblog)
+    public ResponseEntity<Blog> addBlog(@RequestBody Blog newblog)
     {
-        return blogRepo.save(newblog);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Access-Control-Allow-Origin", "*");
+        responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        Blog blog = blogRepo.save(newblog);
+        return new ResponseEntity<>(blog, responseHeaders, HttpStatus.OK);
     }
 }

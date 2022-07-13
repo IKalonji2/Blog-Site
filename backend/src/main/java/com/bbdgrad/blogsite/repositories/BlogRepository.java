@@ -8,7 +8,5 @@ import java.util.List;
 
 public interface BlogRepository extends JpaRepository<Blog, Long> {
     List<Blog> findByCategoryCategoryName(String categoryName);
-    List<Blog> findByUserName(String name);
-
-
+    List<Blog> findByUserUsername(String username);
 }

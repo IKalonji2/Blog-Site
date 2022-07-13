@@ -57,17 +57,11 @@ public class PublicController {
 
         ResponseEntity<AwsUserDetails> cognitoResponse = restTemplate.exchange(cognitoEndpoint + "/userInfo", HttpMethod.POST, entity, AwsUserDetails.class);
 
-
         httpResponse.addHeader("Access-Control-Allow-Origin", "*");
         httpResponse.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
         LoginManager.getInstance().insertUserDetails(cognitoResponse.getBody().getSub(), responseTokens.getBody());
         httpResponse.sendRedirect("https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com?" + "username=" + cognitoResponse.getBody().getUsername() + "&sub=" + cognitoResponse.getBody().getSub());
-    }
-
-    @PostMapping("/restricted")
-        public String restricted(@RequestHeader Map<String, String> headers) {
-        return "You now have access";
     }
 
     @GetMapping("/token")

@@ -3,6 +3,7 @@ package com.bbdgrad.blogsite.controllers;
 import com.bbdgrad.blogsite.models.Category;
 import com.bbdgrad.blogsite.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,9 @@ public class categoryController {
     @GetMapping("/categories")
     public ResponseEntity<Category> getAllCategories()
     {
-        return new ResponseEntity(catRepo.findAll(), HttpStatus.OK);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Access-Control-Allow-Origin", "*");
+        responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        return new ResponseEntity(catRepo.findAll(), responseHeaders, HttpStatus.OK);
     }
 }

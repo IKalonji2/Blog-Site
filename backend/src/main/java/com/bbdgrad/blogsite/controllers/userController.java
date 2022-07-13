@@ -7,6 +7,7 @@ import com.bbdgrad.blogsite.repositories.BlogRepository;
 import com.bbdgrad.blogsite.repositories.CategoryRepository;
 import com.bbdgrad.blogsite.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,27 +33,9 @@ public class userController {
     public ResponseEntity<List<User>> getusers()
     {
         List<User> users = userRepo.findAll();
-        return new ResponseEntity(users, HttpStatus.OK);
-    }
-
-    @GetMapping("/category")
-    public ResponseEntity<List<Category>> getCategory()
-    {
-        List<Category> users = categoryRepository.findAll();
-        return new ResponseEntity(users, HttpStatus.OK);
-    }
-
-    @GetMapping("/blog")
-    public ResponseEntity<List<Blog>> getBlog()
-    {
-        List<Blog> users = blogRepository.findAll();
-        return new ResponseEntity(users, HttpStatus.OK);
-    }
-
-    @GetMapping("/uploadBlog")
-    public ResponseEntity<String> uploadBlog(@RequestBody Blog blog)
-    {
-        blogRepository.save(blog);
-        return new ResponseEntity("Done", HttpStatus.OK);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Access-Control-Allow-Origin", "*");
+        responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        return new ResponseEntity<>(users, responseHeaders, HttpStatus.OK);
     }
 }
