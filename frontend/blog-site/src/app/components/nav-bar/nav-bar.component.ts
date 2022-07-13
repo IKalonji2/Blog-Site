@@ -35,6 +35,11 @@ export class NavBarComponent implements OnInit {
         });
       }
     });
+    this.route.queryParams
+      .subscribe(params => {
+        console.log("Params: " + params); // { orderby: "price" }
+      }
+    );
   }
 
   async getUser(): Promise<void> {
@@ -55,5 +60,9 @@ export class NavBarComponent implements OnInit {
         //console.log('token', s);
       }
     });
+  }
+
+  addArticle(){
+    this.router.navigateByUrl("add-article")
   }
 }

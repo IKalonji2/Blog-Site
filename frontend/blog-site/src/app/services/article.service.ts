@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { ArticleModel } from '../models/articleModel';
 
 @Injectable({
@@ -8,12 +8,12 @@ import { ArticleModel } from '../models/articleModel';
 })
 export class ArticleService {
 
-  URL:string = environment.article_endpoint
+  URL:string = "environment.article_endpoint"
 
-  postArticle:string = '/Blog/new';
-  AllArticles:string = '/Blog/all';
-  ArticleByCategory:string = '/Blog/Category/categoryName';
-  ArticleByAuthor:string = '/Blog/User/author';
+  postArticle:string = 'https://bs-loadbalance-1072678543.af-south-1.elb.amazonaws.com:8081/v1/Blog/new';
+  AllArticles:string = '/article/all';
+  ArticleByCategory:string = '/article/by-category/';
+  ArticleByAuthor:string = '/article/author/';
   Categories:string = "/categories"
 
   categoriesList: string[] = [];
@@ -21,9 +21,11 @@ export class ArticleService {
   constructor(private http: HttpClient) { }
 
   postNewArticle(
-    article: ArticleModel
+    article: ArticleModel,
+    token: string
   ){
-    return this.http.post(this.URL+this.postArticle, article)
+    const header = new HttpHeaders().set('authorization', token)
+    return this.http.post(this.postArticle, article, {headers: header})
   }
 
   getAllArticles(){

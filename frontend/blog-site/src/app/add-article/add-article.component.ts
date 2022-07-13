@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { ArticleModel } from '../models/articleModel';
 import { ArticleService } from '../services/article.service';
+import { selectUser, selectUserToken } from '../store/store.selectors';
+
 
 @Component({
   selector: 'app-add-article',
@@ -32,7 +36,13 @@ export class AddArticleComponent implements OnInit {
 
   categories: string[] = [];
 
-  constructor(private articleService: ArticleService) {}
+  titleControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)])
+  categoryControl = new FormControl('', [Validators.required])
+  contentControl = new FormControl('', [Validators.required, Validators.maxLength(250)])
+
+  constructor(private articleService: ArticleService,
+              private store: Store,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.getCategories();
@@ -60,13 +70,21 @@ export class AddArticleComponent implements OnInit {
     this.article.time = new Date().toDateString();
 
     //get user from user service and assign value to article.author
+    const token = this.getToken();
 
-    this.articleService.postNewArticle(this.article).subscribe(
+    if (token == ""){
+      alert('There was an error obtaining your token');
+      return;
+    }
+
+
+    this.articleService.postNewArticle(this.article, token).subscribe(
       (data) => {
         let postArticleResponse: any = data;
         let result = postArticleResponse.result;
-        if ((result = 'Ok')) {
+        if ((result = 'ok')) {
           alert('Article successfully posted');
+          this.router.navigateByUrl('')          
         }
       },
       (error) => {
@@ -75,4 +93,18 @@ export class AddArticleComponent implements OnInit {
       }
     );
   }
+
+  getToken(): string{
+    let token = this.store.pipe(select(selectUserToken));
+    token.subscribe((s) => {
+      if (!s) {
+        return "";
+      } else {
+        console.log('token', s);
+        return s.access_token
+      }
+    });
+    return "";
+  }
+
 }
