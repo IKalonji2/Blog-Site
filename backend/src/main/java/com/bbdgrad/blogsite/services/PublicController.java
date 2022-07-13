@@ -20,4 +20,5 @@ public class PublicController {
     public String landing() {
         return "Hello, you";
     }
+
 }
