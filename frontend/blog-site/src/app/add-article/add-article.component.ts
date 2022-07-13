@@ -91,7 +91,7 @@ export class AddArticleComponent implements OnInit {
     }
 
 
-    this.articleService.postNewArticle(this.article, 'token').subscribe(
+    this.articleService.postNewArticle(this.article, token).subscribe(
       (data) => {
         let postArticleResponse: any = data;
         let result = postArticleResponse.result;
