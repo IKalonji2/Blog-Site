@@ -1,4 +1,8 @@
 import {
+  ArticleService
+} from './../../services/article.service';
+
+import {
   Input,
   OnInit,
   Component,
@@ -23,7 +27,12 @@ export class CategoryFilterComponent implements OnInit {
     },
   };
 
-  constructor() { }
+  constructor(private articleService: ArticleService) {
+  }
+
+  getArticles() {
+    console.log(this.category.name)
+  }
 
   ngOnInit(): void {
   }

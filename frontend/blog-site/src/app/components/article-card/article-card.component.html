@@ -29,13 +29,13 @@
     <mat-card-content >
 
       <p>
-        {{ article.content}}...
+        {{ articleExtract }}
       </p>
     </mat-card-content>
 
     <mat-card-footer class="article-footer">
 
-      <button mat-button>
+      <button mat-button (click)="showArticle()">
         read more...
       </button>
     </mat-card-footer>

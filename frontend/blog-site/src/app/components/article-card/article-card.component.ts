@@ -29,9 +29,18 @@ export class ArticleCardComponent implements OnInit {
     title: "",
   };
 
-  constructor() { }
+  articleExtract: string = '';
+
+  showArticle() {
+    console.log(this.article)
+  }
+
+  constructor() {}
 
   ngOnInit(): void {
+    this.articleExtract = this.article.content.slice(0, 500)+'...';
+
+    console.log(this.articleExtract)
   }
 
 }
