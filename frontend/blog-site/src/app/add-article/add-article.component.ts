@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
+import { CategoryModel } from 'app/models/categoryModel';
 import { ArticleModel} from '../models/articleModel';
 import { ArticleService } from '../services/article.service';
 import { selectSub, selectUser, selectUserToken } from '../store/store.selectors';
@@ -33,7 +34,7 @@ export class AddArticleComponent implements OnInit {
     body: '',
   };
 
-  categories: ArticleModel[] = [];
+  categories: any = [];
   accessToken: string = '';
   userSub: string = '';
 
@@ -61,19 +62,16 @@ export class AddArticleComponent implements OnInit {
   getCategories() {
     this.articleService.getCategories().subscribe(
       (data) => {
-        let response: any = data;
-
-        //console.log(response)
 
         if (data) {
-          this.categories = response;
+          this.categories = data;
         } else {
-          this.categories.push({category:{categoryID:-1,categoryName:"error"}} as ArticleModel);
+          this.categories.push({categoryID:-1,categoryName:"error"} as CategoryModel);
         }
       },
       (error) => {
         console.log(error);
-        this.categories.push({category:{categoryID:-1,categoryName:"error"}} as ArticleModel);
+        this.categories.push({categoryID:-1,categoryName:"error"} as CategoryModel);
       }
     );
   }

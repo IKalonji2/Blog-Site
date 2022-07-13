@@ -14,7 +14,7 @@
                 <mat-label>Category</mat-label>
                 <mat-select>
                   <mat-option *ngFor="let category of categories" [value]="category" [ngModel]="article.category" [formControl]="categoryControl" required>
-                    {{category.category.categoryName}}
+                    {{category.categoryName}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
