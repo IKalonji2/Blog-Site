@@ -4,14 +4,34 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ViewArticleComponent } from './components/view-article/view-article.component';
 import { LandingComponentComponent } from './components/landing-component/landing-component.component';
 
-const routes: Routes = [
-  { path: 'article', component: ViewArticleComponent },
+import { CommonModule } from '@angular/common';
+import { AddArticleComponent } from './add-article/add-article.component';
+import { ProfileComponent } from './profile/profile.component';
+import { LogoutComponent } from './logout/logout.component';
 
+const routes: Routes = [
+  {
+    path: 'add-article',
+    component: AddArticleComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
+  },
+  {
+    path: 'article',
+    component: ViewArticleComponent,
+  },
   { path: '', component: LandingComponentComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  declarations: [],
+  imports: [CommonModule, RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
