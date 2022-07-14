@@ -6,7 +6,7 @@
     <div class="article-info">
 
       <p class="article-author">
-        {{ article.user.username }} ||
+        {{ article.user?.username }} ||
       </p>
 
       <p class="article-date">
@@ -14,7 +14,7 @@
       </p>
 
       <p class="article-category">
-        {{ article.category.categoryName }}
+        {{ article.category?.categoryName }}
       </p>
     </div>
 

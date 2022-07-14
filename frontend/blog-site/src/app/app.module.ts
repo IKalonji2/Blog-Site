@@ -29,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MyArticlesComponent } from './components/my-articles/my-articles.component';
 
 
 
@@ -41,6 +42,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CategoryFilterComponent,
     LandingComponentComponent,
     AddArticleComponent,
+    MyArticlesComponent,
     
   ],
   imports: [
