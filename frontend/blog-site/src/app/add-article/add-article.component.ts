@@ -93,12 +93,10 @@ export class AddArticleComponent implements OnInit {
     
     //get user from user service and assign value to article.author
     const token = this.accessToken;
-    // if (token == ""){
-    //   alert('There was an error obtaining your token');
-    //   return;
-    // }
-
-    console.log(this.article)
+    if (token == ""){
+      alert('There was an error obtaining your token');
+      return;
+    }
 
     this.articleService.postNewArticle(this.article, token).subscribe(
       (data) => {
