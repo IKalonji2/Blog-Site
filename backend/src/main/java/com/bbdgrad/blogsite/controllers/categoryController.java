@@ -20,7 +20,6 @@ public class categoryController {
     public ResponseEntity<Category> getAllCategories()
     {
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add("Access-Control-Allow-Origin", "*");
         responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         return new ResponseEntity(catRepo.findAll(), responseHeaders, HttpStatus.OK);
     }

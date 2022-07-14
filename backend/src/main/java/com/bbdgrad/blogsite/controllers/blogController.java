@@ -23,7 +23,6 @@ public class blogController {
     {
         List<Blog> Blogs = blogRepo.findAll();
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add("Access-Control-Allow-Origin", "*");
         responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         return new ResponseEntity<>(Blogs, responseHeaders, HttpStatus.OK);
     }
@@ -35,7 +34,6 @@ public class blogController {
             if(blogRepo.findByCategoryCategoryName(categoryName).size() != 0)
             {
                 HttpHeaders responseHeaders = new HttpHeaders();
-                responseHeaders.add("Access-Control-Allow-Origin", "*");
                 responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
                 return new ResponseEntity<>(blogRepo.findByCategoryCategoryName(categoryName), responseHeaders, HttpStatus.OK);
@@ -50,7 +48,6 @@ public class blogController {
             if (blogRepo.findByUserUsername(userName).size() != 0)
             {
                 HttpHeaders responseHeaders = new HttpHeaders();
-                responseHeaders.add("Access-Control-Allow-Origin", "*");
                 responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                 return new ResponseEntity<>(blogRepo.findByUserUsername(userName), responseHeaders, HttpStatus.OK);
             }
@@ -63,7 +60,6 @@ public class blogController {
     public ResponseEntity<Map<String, String>> addBlog(@RequestBody Blog newblog)
     {
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add("Access-Control-Allow-Origin", "*");
         responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         Blog blog = blogRepo.save(newblog);
         Map<String, String> loadStatus = new HashMap<>();
@@ -74,5 +70,12 @@ public class blogController {
             loadStatus.put("result", "fail");
             return new ResponseEntity<>(loadStatus, responseHeaders, HttpStatus.OK);
         }
+    }
+
+    @RequestMapping(value = "Blog/new", method = RequestMethod.OPTIONS)
+    public ResponseEntity options() {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

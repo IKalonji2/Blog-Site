@@ -68,7 +68,6 @@ public class PublicController {
     public ResponseEntity<JwtTokens> getTokensAlt(@RequestParam String sub) {
         System.out.println("Received sub: " + sub);
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add("Access-Control-Allow-Origin", "*");
         responseHeaders.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         System.out.println("*** Query complete ***");
         return new ResponseEntity<>(LoginManager.getInstance().getUserDetails(sub), responseHeaders, HttpStatus.OK);
