@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ViewArticleComponent } from './components/view-article/view-article.component';
 import { LandingComponentComponent } from './components/landing-component/landing-component.component';
-
+import { MyArticlesComponent } from './components/my-articles/my-articles.component';
 import { CommonModule } from '@angular/common';
 import { AddArticleComponent } from './add-article/add-article.component';
 
@@ -16,6 +16,7 @@ const routes: Routes = [
     path: 'article',
     component: ViewArticleComponent,
   },
+  { path: 'my-articles', component: MyArticlesComponent },
   { path: '', component: LandingComponentComponent },
 ];
 
